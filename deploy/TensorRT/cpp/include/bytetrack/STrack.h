@@ -1,7 +1,8 @@
-#pragma once
+#ifndef INCLUDE_BYTETRACK_STRACK_HPP_
+#define INCLUDE_BYTETRACK_STRACK_HPP_
 
 #include <opencv2/opencv.hpp>
-#include "kalmanFilter.h"
+#include "bytetrack/kalmanFilter.h"
 
 using namespace cv;
 using namespace std;
@@ -52,3 +53,5 @@ private:
 };
 
 }  // namespace bytetrack
+
+#endif  // INCLUDE_BYTETRACK_STRACK_HPP_

@@ -1,6 +1,7 @@
-#pragma once
+#ifndef INCLUDE_BYTETRACK_KALMANFILTER_HPP_
+#define INCLUDE_BYTETRACK_KALMANFILTER_HPP_
 
-#include "dataType.h"
+#include "bytetrack/dataType.h"
 
 namespace bytetrack {
 namespace byte_kalman {
@@ -32,3 +33,5 @@ namespace byte_kalman {
 
 }  // namespace byte_kalman
 }  // namespace bytetrack
+
+#endif  // INCLUDE_BYTETRACK_KALMANFILTER_HPP_

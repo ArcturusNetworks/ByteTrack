@@ -1,7 +1,8 @@
-#pragma once
+#ifndef INCLUDE_BYTETRACK_BYTETRACKER_HPP_
+#define INCLUDE_BYTETRACK_BYTETRACKER_HPP_
 
-#include "STrack.h"
-#include "lapjv.h"
+#include "bytetrack/STrack.h"
+#include "bytetrack/lapjv.h"
 
 using namespace cv;
 using namespace std;
@@ -54,4 +55,6 @@ private:
 };
 
 }  // namespace bytetrack
+
+#endif // INCLUDE_BYTETRACK_BYTETRACKER_HPP_
 

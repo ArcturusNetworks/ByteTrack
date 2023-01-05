@@ -1,6 +1,7 @@
 #pragma once
 
 #include "STrack.h"
+#include "lapjv.h"
 
 using namespace cv;
 using namespace std;

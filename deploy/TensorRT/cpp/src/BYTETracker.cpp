@@ -520,11 +520,7 @@ double BYTETracker::lapjv(const vector<vector<float> > &cost, vector<int> &rowso
 	else
 	{
 		if (!extend_cost)
-		{
-			cout << "set extend_cost=True" << endl;
-			system("pause");
-			exit(0);
-		}
+      std::runtime_error("ByteTracker set extend_cost=True!");
 	}
 		
 	if (extend_cost || cost_limit < LONG_MAX)
@@ -601,11 +597,7 @@ double BYTETracker::lapjv(const vector<vector<float> > &cost, vector<int> &rowso
 
 	int ret = lapjv_internal(n, cost_ptr, x_c, y_c);
 	if (ret != 0)
-	{
-		cout << "Calculate Wrong!" << endl;
-		system("pause");
-		exit(0);
-	}
+    std::runtime_error("ByteTracker wrong calculation!");
 
 	double opt = 0.0;
 
@@ -646,7 +638,7 @@ double BYTETracker::lapjv(const vector<vector<float> > &cost, vector<int> &rowso
 			opt += cost_ptr[i][rowsol[i]];
 		}
 	}
-
+/*
 	for (int i = 0; i < n; i++)
 	{
 		delete[]cost_ptr[i];
@@ -654,7 +646,7 @@ double BYTETracker::lapjv(const vector<vector<float> > &cost, vector<int> &rowso
 	delete[]cost_ptr;
 	delete[]x_c;
 	delete[]y_c;
-
+*/
 	return opt;
 }
 

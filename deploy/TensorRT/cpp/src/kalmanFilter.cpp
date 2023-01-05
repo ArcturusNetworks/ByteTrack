@@ -133,8 +133,7 @@ Eigen::Matrix<float, 1, -1>
 {
 	KAL_HDATA pa = this->project(mean, covariance);
 	if (only_position) {
-		printf("not implement!");
-		exit(0);
+		std::runtime_error("ByteTracker only_position not implemented");
 	}
 	KAL_HMEAN mean1 = pa.first;
 	KAL_HCOVA covariance1 = pa.second;

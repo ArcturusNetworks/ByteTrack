@@ -2,8 +2,9 @@
 
 #include "dataType.h"
 
-namespace byte_kalman
-{
+namespace bytetrack {
+namespace byte_kalman {
+
 	class KalmanFilter
 	{
 	public:
@@ -28,4 +29,6 @@ namespace byte_kalman
 		float _std_weight_position;
 		float _std_weight_velocity;
 	};
-}
+
+}  // namespace byte_kalman
+}  // namespace bytetrack

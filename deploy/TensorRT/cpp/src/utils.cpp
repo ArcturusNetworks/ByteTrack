@@ -1,6 +1,8 @@
 #include "BYTETracker.h"
 #include "lapjv.h"
 
+namespace bytetrack {
+
 vector<STrack*> BYTETracker::joint_stracks(vector<STrack*> &tlista, vector<STrack> &tlistb)
 {
 	map<int, int> exists;
@@ -427,3 +429,5 @@ Scalar BYTETracker::get_color(int idx)
 	idx += 3;
 	return Scalar(37 * idx % 255, 17 * idx % 255, 29 * idx % 255);
 }
+
+}  // namespace bytetrack

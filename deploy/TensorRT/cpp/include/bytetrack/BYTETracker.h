@@ -9,11 +9,12 @@ struct Object
     float prob;
 };
 
+namespace bytetrack {
+
 class BYTETracker
 {
 public:
 	BYTETracker(int frame_rate = 30, int track_buffer = 30);
-	~BYTETracker();
 
 	vector<STrack> update(const vector<Object>& objects);
 	Scalar get_color(int idx);
@@ -47,3 +48,6 @@ private:
 	vector<STrack> removed_stracks;
 	byte_kalman::KalmanFilter kalman_filter;
 };
+
+}  // namespace bytetrack
+

@@ -373,8 +373,7 @@ vector<vector<float> > BYTETracker::iou_distance(vector<STrack*> &atracks, vecto
 
 	vector<vector<float> > _ious = ious(atlbrs, btlbrs);
 	
-	for (int i = 0; i < _ious.size();i++)
-	{
+	for (int i = 0; i < _ious.size();i++) {
 		vector<float> _iou;
 		for (int j = 0; j < _ious[i].size(); j++)
 			_iou.push_back(1 - _ious[i][j]);

@@ -1,10 +1,14 @@
-#pragma once
+#ifndef INCLUDE_BYTETRACK_DATATYPE_HPP_
+#define INCLUDE_BYTETRACK_DATATYPE_HPP_
 
 #include <cstddef>
 #include <vector>
 
 #include <Eigen/Core>
 #include <Eigen/Dense>
+
+namespace bytetrack {
+
 typedef Eigen::Matrix<float, 1, 4, Eigen::RowMajor> DETECTBOX;
 typedef Eigen::Matrix<float, -1, 4, Eigen::RowMajor> DETECTBOXSS;
 typedef Eigen::Matrix<float, 1, 128, Eigen::RowMajor> FEATURE;
@@ -34,3 +38,7 @@ typedef struct t {
 
 //linear_assignment:
 typedef Eigen::Matrix<float, -1, -1, Eigen::RowMajor> DYNAMICM;
+
+}  // namespace bytetrack
+
+#endif  // INCLUDE_BYTETRACK_DATATYPE_HPP_

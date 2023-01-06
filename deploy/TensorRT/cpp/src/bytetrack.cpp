@@ -8,8 +8,8 @@
 #include <dirent.h>
 #include "NvInfer.h"
 #include "cuda_runtime_api.h"
-#include "logging.h"
-#include "BYTETracker.h"
+#include "bytetrack/logging.h"
+#include "bytetrack/BYTETracker.h"
 
 #define CHECK(status) \
     do\
@@ -27,6 +27,7 @@
 #define BBOX_CONF_THRESH 0.1
 
 using namespace nvinfer1;
+using namespace bytetrack;
 
 // stuff we know about the network and the input/output blobs
 static const int INPUT_W = 1088;

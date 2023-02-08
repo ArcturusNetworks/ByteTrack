@@ -1,13 +1,10 @@
 #include "mot_eval.hpp"
 
 int main(int argc, char**argv) {
-
-  std::cout << "[ INFO ] Running evaluation using custom detections" << std::endl;
-
   std::string input_dets_loc = argv[1];
-  std::cout << "[INFO ] Input detections location: " << input_dets_loc << std::endl;
+  std::cout << "[ INFO ] Input detections: " << input_dets_loc << std::endl;
 
-  for (auto const& dir_entry : std::filesystem::directory_iterator{input_dets_loc}) {
+  for (auto const &dir_entry : std::filesystem::directory_iterator{input_dets_loc}) {
     dets_map_t mot_dets = LoadMotDetections(dir_entry.path());
 
     // Create output stream for mot formatted tracks
@@ -38,16 +35,16 @@ int main(int argc, char**argv) {
         bool vertical = tlwh[2] / tlwh[3] > aspect_ratio_thresh;
         if (tlwh[2] * tlwh[3] > min_box_area && !vertical) {
           // Valid bbox, write to text file
-	  if (output_txt_file.is_open()) {
+          if (output_txt_file.is_open()) {
             output_txt_file << std::to_string(frame_id) << ","
-		            << std::to_string(track.track_id) << ","
+                            << std::to_string(track.track_id) << ","
                             << tlwh[0] << "," << tlwh[1] << ","
                             << tlwh[2] << "," << tlwh[3] << ","
                             << track.score << ",-1,-1,-1\n";
           } else {
-	    std::cout << "[ ERROR ] Cannot open: " << output_mot_file << std::endl;
+            std::cout << "[ ERROR ] Cannot open: " << output_mot_file << std::endl;
           }
-	}
+        }
       }
 
       frame_id++;
@@ -55,8 +52,6 @@ int main(int argc, char**argv) {
 
     output_txt_file.close();
   }
-
-  //std::cout << "[ INFO ] Complete. Tracker output written to: " << std::endl;
 
   return 0;
 }

@@ -21,7 +21,7 @@ typedef std::map<int, std::vector<bt::Object>> dets_map_t;
 
 dets_map_t LoadMotDetections(const std::string &det_loc) {
   std::cout << "[ INFO ] Loading detection for: " << det_loc << std::endl;
-	
+
   dets_map_t detections;
 
   std::ifstream gt_file;
@@ -65,7 +65,7 @@ dets_map_t LoadMotDetections(const std::string &det_loc) {
       obj.rect.width  = bb_width;
       obj.rect.height = bb_height;
       obj.prob  = conf;
-      obj.label = label; 
+      obj.label = label;
 
       detections[frame_id].push_back(obj);
     }

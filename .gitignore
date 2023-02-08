@@ -142,4 +142,5 @@ YOLOX_outputs
 
 # input
 deploy/TensorRT/cpp/examples/build
+deploy/TensorRT/cpp/examples/data
 deploy/TensorRT/cpp/examples/mot_eval/data

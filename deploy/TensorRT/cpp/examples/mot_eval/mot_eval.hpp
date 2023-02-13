@@ -77,4 +77,14 @@ dets_map_t LoadMotDetections(const std::string &det_loc) {
   return detections;
 }
 
+// Define unique tracking configurations for different MOT videos
+// std::pair<track_buffer, track_thresh>
+std::unordered_map<std::string, std::pair<int, float>> MOT_CONFIG = {
+  {"MOT17-01-FRCNN", {30, 0.65}}, {"MOT17-05-FRCNN", {14, 0.50}},
+  {"MOT17-06-FRCNN", {14, 0.65}}, {"MOT17-12-FRCNN", {30, 0.70}},
+  {"MOT17-13-FRCNN", {25, 0.50}}, {"MOT17-14-FRCNN", {25, 0.67}},
+  {"MOT20-06", {30, 0.30}}, {"MOT20-08", {30, 0.30}}
+  }
+};
+
 #endif  // BYTETRACK_MOT_GENERATE_TRACKS_HPP_

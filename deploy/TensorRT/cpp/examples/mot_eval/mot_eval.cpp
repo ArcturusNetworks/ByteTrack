@@ -14,12 +14,18 @@ int main(int argc, char**argv) {
     // Initialize new bytetracker for each MOT video
     int frame_rate   = 30;
     int track_buffer = 30;
-    // TODO(jrynne): Add tracking threshold to C++ BYTETracker constructor
-    // float track_thresh = 0.5;
+    float track_thresh = 0.5;
     float min_box_area = 20;
     float aspect_ratio_thresh = 1.6;
 
-    bt::BYTETracker tracker(frame_rate, track_buffer);
+    // Determine if current mot vdeo has a custom config
+    std::string mot_name = dir_entry.path().filename().replace_extension();
+    if (MOT_CONFIG.count(mot_name) != 0) {
+      track_buffer = MOT_CONFIG[mot_name].first;
+      track_thresh = MOT_CONFIG[mot_name].second;
+    }
+
+    bt::BYTETracker tracker(frame_rate, track_buffer, track_thresh);
 
     int frame_id = 1;
     int total_frames = mot_dets.size();

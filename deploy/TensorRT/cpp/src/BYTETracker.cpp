@@ -3,8 +3,8 @@
 
 namespace bytetrack {
 
-BYTETracker::BYTETracker(int frame_rate, int track_buffer, float track_thresh) :
-  track_thresh(track_thresh), match_thresh(match_thresh) {
+BYTETracker::BYTETracker(int frame_rate, int track_buffer, float track_thresh,
+    float match_thresh) : track_thresh(track_thresh), match_thresh(match_thresh) {
   high_thresh = 0.6;
   frame_id = 0;
   max_time_lost = static_cast<int>(frame_rate / 30.0 * track_buffer);

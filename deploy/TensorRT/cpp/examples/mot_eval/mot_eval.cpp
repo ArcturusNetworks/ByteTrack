@@ -2,6 +2,7 @@
 
 int main(int argc, char**argv) {
   std::string input_dets_loc = argv[1];
+  float track_thresh = atof(argv[2]);
   std::cout << "[ INFO ] Input detections: " << input_dets_loc << std::endl;
 
   for (auto const &dir_entry : std::filesystem::directory_iterator{input_dets_loc}) {
@@ -14,7 +15,6 @@ int main(int argc, char**argv) {
     // Initialize new bytetracker for each MOT video
     int frame_rate   = 30;
     int track_buffer = 30;
-    float track_thresh = 0.5;
     float min_box_area = 20;
     float aspect_ratio_thresh = 1.6;
 
@@ -29,8 +29,9 @@ int main(int argc, char**argv) {
 
     int frame_id = 1;
     int total_frames = mot_dets.size();
-    std::cout << "[ INFO ] Total number of frames: " << total_frames << std::endl;
-    std::cout << "[ INFO ] Running bytetracker for " << output_mot_file << " ... " << std::endl;
+
+    PrintConfig(mot_name, total_frames, track_thresh, track_buffer);
+
     while (frame_id <= total_frames) {
       // Update bytetracker and retrieve tracks
       std::vector<bt::STrack> tracks = tracker.update(mot_dets[frame_id]);

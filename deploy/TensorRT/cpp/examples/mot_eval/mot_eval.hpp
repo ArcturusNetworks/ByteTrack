@@ -77,6 +77,14 @@ dets_map_t LoadMotDetections(const std::string &det_loc) {
   return detections;
 }
 
+void PrintConfig(const std::string &name, const int &num_frames,
+    const float &track_thresh, const int &track_buffer) {
+  std::cout << "[ INFO ] ByteTrack Config for " << name << " ... " << std::endl;
+  std::cout << "[ INFO ]     Total Frames: " << num_frames << std::endl;
+  std::cout << "[ INFO ]     Track Thresh: " << track_thresh << std::endl;
+  std::cout << "[ INFO ]     Track Buffer: " << track_buffer << std::endl;
+}
+
 // Define unique tracking configurations for different MOT videos
 // std::pair<track_buffer, track_thresh>
 std::unordered_map<std::string, std::pair<int, float>> MOT_CONFIG = {

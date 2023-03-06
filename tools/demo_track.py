@@ -86,6 +86,8 @@ def make_parser():
         help="threshold for filtering out boxes of which aspect ratio are above the given value."
     )
     parser.add_argument('--min_box_area', type=float, default=10, help='filter out tiny boxes')
+    parser.add_argument('--mot', type=str, default=None, help='name of mot for saving detections')
+    parser.add_argument('--det_path', type=str, default=None, help='name of path for loading saved detections detections')
     parser.add_argument("--mot20", dest="mot20", default=False, action="store_true", help="test mot20.")
     return parser
 
@@ -174,7 +176,6 @@ class Predictor(object):
             #logger.info("Infer time: {:.4f}s".format(time.time() - t0))
         return outputs, img_info
 
-
 def image_demo(predictor, vis_folder, current_time, args):
     if osp.isdir(args.path):
         files = get_image_list(args.path)
@@ -184,10 +185,38 @@ def image_demo(predictor, vis_folder, current_time, args):
     tracker = BYTETracker(args, frame_rate=args.fps)
     timer = Timer()
     results = []
+    det_results = []
 
     for frame_id, img_path in enumerate(files, 1):
         outputs, img_info = predictor.inference(img_path, timer)
+
         if outputs[0] is not None:
+            # for output in outputs[0]:
+            output_results = outputs[0]
+            if output_results.shape[1] == 5:
+                scores = output_results[:, 4]
+                bboxes = output_results[:, :4]
+            else:
+                output_results = output_results.cpu().numpy()
+                scores = output_results[:, 4] * output_results[:, 5]
+                bboxes = output_results[:, :4]  # x1y1x2y2
+
+            # scale = min(img_info['height'] / exp.test_size[0], img_info['width'] / exp.test_size[1])
+            scale = min(exp.test_size[0] / float(img_info['height']), exp.test_size[1] / float(img_info['width']))
+            bboxes /= scale
+
+            for conf, bbox in zip(scores, bboxes):
+                x = bbox[0]
+                y = bbox[1]
+                w = bbox[2] - bbox[0]
+                h = bbox[3] - bbox[1]
+                if conf > 0.05:
+                    det_results.append(
+                        #f"{frame_id},{tid},{tlwh[0]:.2f},{tlwh[1]:.2f},{tlwh[2]:.2f},{tlwh[3]:.2f},{conf:.2f},-1,-1,-1\n"
+                        f"{frame_id},0,{x:.2f},{y:.2f},{w:.2f},{h:.2f},{conf:.2f},-1,-1,-1\n"
+                    )
+
+
             online_targets = tracker.update(outputs[0], [img_info['height'], img_info['width']], exp.test_size)
             online_tlwhs = []
             online_ids = []
@@ -217,7 +246,7 @@ def image_demo(predictor, vis_folder, current_time, args):
             timestamp = time.strftime("%Y_%m_%d_%H_%M_%S", current_time)
             save_folder = osp.join(vis_folder, timestamp)
             os.makedirs(save_folder, exist_ok=True)
-            cv2.imwrite(osp.join(save_folder, osp.basename(img_path)), online_im)
+            #cv2.imwrite(osp.join(save_folder, osp.basename(img_path)), online_im)
 
         if frame_id % 20 == 0:
             logger.info('Processing frame {} ({:.2f} fps)'.format(frame_id, 1. / max(1e-5, timer.average_time)))
@@ -228,9 +257,13 @@ def image_demo(predictor, vis_folder, current_time, args):
 
     if args.save_result:
         res_file = osp.join(vis_folder, f"{timestamp}.txt")
+        det_file = osp.join(vis_folder, f"{args.mot}.txt")
         with open(res_file, 'w') as f:
             f.writelines(results)
         logger.info(f"save results to {res_file}")
+        with open(det_file, 'w') as f:
+            f.writelines(det_results)
+        logger.info(f"save detection results to {det_file}")
 
 
 def imageflow_demo(predictor, vis_folder, current_time, args):

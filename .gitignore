@@ -139,6 +139,7 @@ docs/api
 events.out.tfevents*
 pretrained
 YOLOX_outputs
+bytetrack_output
 
 # input
 deploy/TensorRT/cpp/examples/build

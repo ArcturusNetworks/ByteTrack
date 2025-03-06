@@ -6,10 +6,11 @@
 using namespace cv;
 using namespace std;
 
+namespace bytetrack {
+
 enum TrackState { New = 0, Tracked, Lost, Removed };
 
-class STrack
-{
+class STrack {
 public:
 	STrack(vector<float> tlwh_, float score);
 	~STrack();
@@ -48,3 +49,5 @@ public:
 private:
 	byte_kalman::KalmanFilter kalman_filter;
 };
+
+}  // namespace bytetrack

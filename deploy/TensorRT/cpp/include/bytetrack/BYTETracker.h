@@ -2,14 +2,21 @@
 
 #include "STrack.h"
 
+// struct Object
+// {
+//     cv::Rect_<float> rect;
+//     int label;
+//     float prob;
+// };
+
+namespace bytetrack {
+
 struct Object
 {
     cv::Rect_<float> rect;
     int label;
     float prob;
 };
-
-namespace bytetrack {
 
 class BYTETracker
 {
